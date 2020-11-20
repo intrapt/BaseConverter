@@ -3,13 +3,13 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(den2Bin(12));
         System.out.println(bin2Den("11111111"));
+        System.out.println(bin2Hex("11111111"));
     }
 
     public static String den2Bin(int denary) {
-        int[] bits = {128, 64, 32, 16, 8, 4, 2, 1};
         String binary = "";
         for (int i = 0; i < 8; i++) {
-            if (denary >= bits[i]) {
+            if (denary >= Math.pow(2, 7 - i)) {
                 binary += "1";
                 denary -= Math.pow(2, 7 - i);
             } else {
@@ -32,8 +32,13 @@ public class Main {
         return denary;
     }
 
-    public static String hex2Bin(String binary) {
+    public static String bin2Hex(String binary) {
+        String[] hexL = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String hex = "";
+        int j = 0;
+        while (binary.length() % 4 != 0) binary = "0" + binary;
+        for (int i = 0; i < binary.length(); i += 4)
+            hex += hexL[bin2Den(binary.substring(i, Math.min(binary.length(), i + 4)))];
         return hex;
     }
 
