@@ -26,12 +26,11 @@ public class Main {
 
     public static int bin2Den(String binary) {
         int denary = 0;
-        String bin2 = "";
-        int bit = 0;
-        for (int i = binary.length(); i > 0; i--) bin2 += bin2 + binary.substring(i, i + 1);
-        for (int i = 0; i < bin2.length(); i++) {
-            if (binary.substring(i, i + 1) == "1") {
-                denary += Math.pow(bit, 2);
+        String bit = "";
+        for (int i = 0; i < binary.length(); i++) {
+            bit = binary.substring(i, i+1);
+            if (bit.equals("1")) {
+                denary += Math.pow(2, binary.length() - i - 1);
             }
         }
         return denary;
