@@ -5,6 +5,8 @@ public class Main {
         System.out.println(bin2Den("11111111"));
         System.out.println(bin2Hex("11111111"));
         System.out.println(hex2Bin("2D"));
+        System.out.println(den2Hex(255));
+        System.out.println(hex2Den("FF"));
     }
 
     public static String den2Bin(int denary) {
@@ -58,5 +60,13 @@ public class Main {
             }
         }
         return binary;
+    }
+
+    public static String den2Hex(int denary) {
+        return bin2Hex(den2Bin(denary));
+    }
+
+    public static int hex2Den(String hex) {
+        return bin2Den(hex2Bin(hex));
     }
 }
