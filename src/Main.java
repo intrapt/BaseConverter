@@ -4,6 +4,7 @@ public class Main {
         System.out.println(den2Bin(12));
         System.out.println(bin2Den("11111111"));
         System.out.println(bin2Hex("11111111"));
+        System.out.println(hex2Bin("2D"));
     }
 
     public static String den2Bin(int denary) {
@@ -16,7 +17,6 @@ public class Main {
                 binary += "0";
             }
         }
-        while (binary.length() % 4 != 0) binary = "0" + binary;
         return binary;
     }
 
@@ -33,13 +33,30 @@ public class Main {
     }
 
     public static String bin2Hex(String binary) {
-        String[] hexL = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         String hex = "";
-        int j = 0;
         while (binary.length() % 4 != 0) binary = "0" + binary;
-        for (int i = 0; i < binary.length(); i += 4)
-            hex += hexL[bin2Den(binary.substring(i, Math.min(binary.length(), i + 4)))];
+        String[] hexL = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
+        for (int i = 0; i < binary.length(); i += 4) hex += hexL[bin2Den(binary.substring(i, Math.min(binary.length(), i + 4)))];
         return hex;
     }
 
+    public static String hex2Bin(String hex) {
+        String[] hexL = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
+        int nibble = 0;
+        String binary = "";
+        for (int i = 0; i < hex.length(); i++) {
+            for (int j = 0; j < hexL.length; j++) {
+                if (hexL[j].equals(hex.substring(i, i+1))) {
+                    nibble = j;
+                    for (int k = 0; k < 4; k++) {
+                        if (nibble >= Math.pow(2, 3-k)) {
+                            binary += "1";
+                            nibble -= Math.pow(2, 3-k);
+                        } else binary += "0";
+                    }
+                }
+            }
+        }
+        return binary;
+    }
 }
