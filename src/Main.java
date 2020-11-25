@@ -11,14 +11,11 @@ public class Main {
 
     public static String den2Bin(int denary) {
         String binary = "";
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++)
             if (denary >= Math.pow(2, 7 - i)) {
                 binary += "1";
                 denary -= Math.pow(2, 7 - i);
-            } else {
-                binary += "0";
-            }
-        }
+            } else binary += "0";
         return binary;
     }
 
@@ -27,9 +24,7 @@ public class Main {
         String bit = "";
         for (int i = 0; i < binary.length(); i++) {
             bit = binary.substring(i, i + 1);
-            if (bit.equals("1")) {
-                denary += Math.pow(2, binary.length() - i - 1);
-            }
+            if (bit.equals("1")) denary += Math.pow(2, binary.length() - i - 1);
         }
         return denary;
     }
@@ -38,25 +33,24 @@ public class Main {
         String hex = "";
         while (binary.length() % 4 != 0) binary = "0" + binary;
         String[] hexL = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
-        for (int i = 0; i < binary.length(); i += 4) hex += hexL[bin2Den(binary.substring(i, Math.min(binary.length(), i + 4)))];
+        for (int i = 0; i < binary.length(); i += 4)
+            hex += hexL[bin2Den(binary.substring(i, Math.min(binary.length(), i + 4)))];
         return hex;
     }
 
     public static String hex2Bin(String hex) {
         String[] hexL = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"};
         int nibble = 0;
+        double num = 0;
         String binary = "";
         for (int i = 0; i < hex.length(); i++) {
-            for (int j = 0; j < hexL.length; j++) {
-                if (hexL[j].equals(hex.substring(i, i+1))) {
-                    nibble = j;
-                    for (int k = 0; k < 4; k++) {
-                        if (nibble >= Math.pow(2, 3-k)) {
-                            binary += "1";
-                            nibble -= Math.pow(2, 3-k);
-                        } else binary += "0";
-                    }
-                }
+            for (int j = 0; j < hexL.length; j++) if (hexL[j].equals(hex.substring(i, i + 1))) nibble = j;
+            for (int k = 0; k < 4; k++) {
+                num = Math.pow(2, 3 - k);
+                if (nibble >= num) {
+                    binary += "1";
+                    nibble -= num;
+                } else binary += "0";
             }
         }
         return binary;
